@@ -2,6 +2,8 @@
 
 Play Pokemon Go with your keyboard in a browser
 
+![Shot](assets/shot.png)
+
 Environment
 ------------
 - Python 2 or 3 [not tested]
