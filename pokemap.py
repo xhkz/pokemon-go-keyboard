@@ -1,6 +1,7 @@
 #! /usr/bin/python
+import os
+import xml.etree.cElementTree as et
 
-import xml.etree.ElementTree as et
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
@@ -24,7 +25,10 @@ def gpx_gen(lat, lng):
     wpt = et.SubElement(gpx, "wpt", lat=lat, lon=lng)
     et.SubElement(wpt, "name").text = "location"
     et.ElementTree(gpx).write("location.gpx")
-    print("Current lat: %s, lng: %s" % (lat, lng))
+
+    os.system("osascript click_menu.applescript > /dev/null 2>&1")
+
+    print("Updated lat: %s, lng: %s" % (lat, lng))
 
 
 if __name__ == '__main__':
