@@ -1,10 +1,11 @@
 #! /usr/bin/python
 import os
-import xml.etree.cElementTree as et
+from threading import Lock
 
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
+lock = Lock()
 
 
 @app.route('/')
@@ -17,18 +18,16 @@ def get_pos():
     lat = request.args.get('lat')
     lng = request.args.get('lng')
     gpx_gen(lat, lng)
+
     return "OK"
 
 
 def gpx_gen(lat, lng):
-    gpx = et.Element("gpx", version="1.1", creator="Xcode")
-    wpt = et.SubElement(gpx, "wpt", lat=lat, lon=lng)
-    et.SubElement(wpt, "name").text = "location"
-    et.ElementTree(gpx).write("location.gpx")
+    with lock:
+        with open('location.gpx', 'w') as location:
+            location.write('<gpx><wpt lat="%s" lon="%s"></wpt></gpx>' % (lat, lng))
 
-    os.system("osascript click_menu.applescript > /dev/null 2>&1")
-
-    print("Updated lat: %s, lng: %s" % (lat, lng))
+        os.system('osascript click_menu.applescript >/dev/null 2>&1')
 
 
 if __name__ == '__main__':
