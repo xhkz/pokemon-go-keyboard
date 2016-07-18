@@ -17,7 +17,8 @@ def poke_map():
 def get_pos():
     lat = request.args.get('lat')
     lng = request.args.get('lng')
-    gpx_gen(lat, lng)
+    if not lock.locked():
+        gpx_gen(lat, lng)
 
     return "OK"
 
@@ -31,4 +32,4 @@ def gpx_gen(lat, lng):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', threaded=True, debug=True)
