@@ -46,12 +46,68 @@
     function initMap() {
         var my_pos = {lat: c_lat, lng: c_lng};
 
+        var pokeStyle = [{
+            "featureType": "water",
+            "stylers": [
+              { "visibility": "on" },
+              { "color": "#1A87D6" }
+            ]
+          },{
+            "featureType": "landscape",
+            "stylers": [
+              { "color": "#AFFFA0" }
+            ]
+          },{
+            "featureType": "road",
+            "elementType": "geometry",
+            "stylers": [
+              { "color": "#59A499" }
+            ]
+          },{
+            "featureType": "poi",
+            "stylers": [
+              { "color": "#05ae90" }
+            ]
+          }, {
+            "featureType": "poi",
+            "elementType": "labels",
+            "stylers": [
+              {"visibility": "off"}
+            ]
+          },
+          {
+            "featureType": "road",
+            "elementType": "geometry.stroke",
+            "stylers": [
+              { "color": "#F0FF8D" },
+              { "weight": 2.2 }
+            ]
+          },{
+            "featureType": "poi.business",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          },{
+            "featureType": "poi.government",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          },{
+            "featureType": "administrative.locality",
+            "stylers": [
+              { "visibility": "off" }
+            ]
+          }
+        ]
+
+
         // Create a map object and specify the DOM element for display.
         var map = new google.maps.Map(document.getElementById('map'), {
             center: my_pos,
             scrollwheel: true,
             zoom: 18,
-            keyboardShortcuts: false
+            keyboardShortcuts: false,
+            styles:pokeStyle
         });
 
         // Create a marker and set its position.

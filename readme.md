@@ -19,7 +19,7 @@ Usage
 4. cd path-to-clone
 5. [sudo] pip install -r requirements.txt
 6. ./pokemap.py
-7. open https://localhost:5000, drag the marker or use arrow key to control your location
+7. open http://localhost:5000, drag the marker or use arrow key to control your location
 ```
 
 Thanks
