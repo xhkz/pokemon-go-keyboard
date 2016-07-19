@@ -158,7 +158,7 @@
             http_get('/pos?lat=' + my_pos.lat + '&lng=' + my_pos.lng);
         });
         
-        google.maps.event.addListener(map, 'center_changed', function (e) {
+        google.maps.event.addListener(map, 'drag', function (e) {
            var pos = map.getCenter();
            my_pos.lat = parseFloat(pos.lat());
            my_pos.lng = parseFloat(pos.lng());
