@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="UTF-8">
-    <title>pokemon</title>
+    <title>Pokemon Go Keyboard</title>
     <style>
         html, body {
             height: 100%;
@@ -114,7 +114,8 @@
         var marker = new google.maps.Marker({
             map: map,
             position: my_pos,
-            draggable: true
+            draggable: true,
+            icon:'static/pokeball.png'
         });
 
         google.maps.event.addDomListener(document, 'keydown', function (event) {
@@ -150,12 +151,12 @@
         });
         
         google.maps.event.addListener(map, 'center_changed', function (e) {
-                                      var pos = map.getCenter();
-                                      my_pos.lat = parseFloat(pos.lat());
-                                      my_pos.lng = parseFloat(pos.lng());
-                                      marker.setPosition(pos);
-                                      http_get('/pos?lat=' + my_pos.lat + '&lng=' + my_pos.lng);
-                                      });
+           var pos = map.getCenter();
+           my_pos.lat = parseFloat(pos.lat());
+           my_pos.lng = parseFloat(pos.lng());
+           marker.setPosition(pos);
+           http_get('/pos?lat=' + my_pos.lat + '&lng=' + my_pos.lng);
+       });
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?callback=init_pos"
