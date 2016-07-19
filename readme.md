@@ -6,6 +6,7 @@ Play Pokemon Go with your keyboard in a browser
 
 Environment
 ------------
+- Python 2 or 3
 - Xcode 7
 
 Usage
