@@ -119,7 +119,7 @@
         });
 
         google.maps.event.addDomListener(document, 'keydown', function (event) {
-            if ([37, 38, 39, 40].indexOf(event.keyCode) != -1) {
+            if ([37, 38, 39, 40, 27].indexOf(event.keyCode) != -1) {
                 var offset = parseFloat(Math.random() / 10000);
                 if (event.keyCode == 37) { // left
                     my_pos.lng -= offset;
@@ -132,6 +132,14 @@
                 }
                 if (event.keyCode == 40) { // down
                     my_pos.lat -= offset;
+                }
+                if (event.keyCode == 27) { // escape, go back to real position
+                    
+                  var dialog = confirm("Do you want to go back to your real position ?");
+                    if (dialog == true) {
+                        my_pos.lat = c_lat;
+                        my_pos.lng=c_lng;
+                    }
                 }
                 my_pos.lat = parseFloat(my_pos.lat);
                 my_pos.lng = parseFloat(my_pos.lng);
