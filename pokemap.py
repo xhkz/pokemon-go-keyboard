@@ -32,4 +32,5 @@ def gpx_gen(lat, lng):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', threaded=True, debug=True)
+    os.system('open "http://localhost:5000"')
+    app.run(host='0.0.0.0', threaded=True, debug=False)

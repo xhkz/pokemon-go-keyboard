@@ -6,7 +6,7 @@ Play Pokemon Go with your keyboard in a browser
 
 Environment
 ------------
-- Python 2 or 3 [not tested]
+- Python 2 or 3
 - Xcode 7
 
 Usage
@@ -19,7 +19,7 @@ Usage
 4. cd path-to-clone
 5. [sudo] pip install -r requirements.txt
 6. ./pokemap.py
-7. open http://localhost:5000, drag the marker or use arrow key to control your location
+7. Drag the marker or use your arrow keys to control your location
 ```
 
 Thanks
