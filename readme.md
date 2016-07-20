@@ -22,6 +22,10 @@ Usage
 7. Drag the marker or use your arrow keys to control your location
 ```
 
+TODO
+----
+- Display nearby pokemons, pokestops and gyms
+
 Thanks
 ------------
 [Pokemon-Go-Controller](https://github.com/kahopoon/Pokemon-Go-Controller)

@@ -1,5 +1,6 @@
 #! /usr/bin/python
 import os
+import argparse
 from threading import Lock
 
 from flask import Flask, render_template, request
@@ -17,6 +18,8 @@ def poke_map():
 def get_pos():
     lat = request.args.get('lat')
     lng = request.args.get('lng')
+
+    # ignore positions during writing location file
     if not lock.locked():
         gpx_gen(lat, lng)
 
@@ -25,12 +28,21 @@ def get_pos():
 
 def gpx_gen(lat, lng):
     with lock:
-        with open('location.gpx', 'w') as location:
+        with open('location.gpx', 'wb') as location:
             location.write('<gpx><wpt lat="%s" lon="%s"></wpt></gpx>' % (lat, lng))
 
         os.system('osascript click_menu.applescript >/dev/null 2>&1')
 
 
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-o', '--open', help='open browser', action='store_true', default=False)
+    args = parser.parse_args()
+
+    if args.open:
+        os.system('open "http://localhost:5000"')
+
+
 if __name__ == '__main__':
-    os.system('open "http://localhost:5000"')
+    main()
     app.run(host='0.0.0.0', threaded=True, debug=False)

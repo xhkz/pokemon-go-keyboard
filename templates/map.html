@@ -46,67 +46,11 @@
     function initMap() {
         var my_pos = {lat: c_lat, lng: c_lng};
 
-        var pokeStyle = [{
-            "featureType": "water",
-            "stylers": [
-                {"visibility": "on"},
-                {"color": "#1A87D6"}
-            ]
-        }, {
-            "featureType": "landscape",
-            "stylers": [
-                {"color": "#AFFFA0"}
-            ]
-        }, {
-            "featureType": "road",
-            "elementType": "geometry",
-            "stylers": [
-                {"color": "#59A499"}
-            ]
-        }, {
-            "featureType": "poi",
-            "stylers": [
-                {"color": "#05ae90"}
-            ]
-        }, {
-            "featureType": "poi",
-            "elementType": "labels",
-            "stylers": [
-                {"visibility": "off"}
-            ]
-        },
-            {
-                "featureType": "road",
-                "elementType": "geometry.stroke",
-                "stylers": [
-                    {"color": "#F0FF8D"},
-                    {"weight": 2.2}
-                ]
-            }, {
-                "featureType": "poi.business",
-                "stylers": [
-                    {"visibility": "off"}
-                ]
-            }, {
-                "featureType": "poi.government",
-                "stylers": [
-                    {"visibility": "off"}
-                ]
-            }, {
-                "featureType": "administrative.locality",
-                "stylers": [
-                    {"visibility": "off"}
-                ]
-            }
-        ];
-
-
         // Create a map object and specify the DOM element for display.
         var map = new google.maps.Map(document.getElementById('map'), {
             center: my_pos,
             zoom: 18,
-            keyboardShortcuts: false,
-            styles: pokeStyle
+            keyboardShortcuts: false
         });
 
         // Create a marker and set its position.
@@ -114,8 +58,13 @@
             map: map,
             position: my_pos,
             draggable: true,
-            icon:'static/pokeball.png'
+            icon: 'static/pokeball.png'
         });
+
+        function update_position() {
+            map.panTo(my_pos);
+            http_get('/pos?lat=' + my_pos.lat + '&lng=' + my_pos.lng);
+        }
 
         google.maps.event.addDomListener(document, 'keydown', function (event) {
             if ([37, 38, 39, 40, 27].indexOf(event.keyCode) != -1) {
@@ -133,19 +82,15 @@
                     my_pos.lat -= offset;
                 }
                 if (event.keyCode == 27) { // escape, go back to real position
-                    
-                  var dialog = confirm("Do you want to go back to your real position ?");
-                    if (dialog == true) {
+                    if (confirm("Do you want to go back to your real position ?")) {
                         my_pos.lat = c_lat;
-                        my_pos.lng=c_lng;
+                        my_pos.lng = c_lng;
                     }
                 }
                 my_pos.lat = parseFloat(my_pos.lat);
                 my_pos.lng = parseFloat(my_pos.lng);
                 marker.setPosition(my_pos);
-                map.panTo(my_pos);
-
-                http_get('/pos?lat=' + my_pos.lat + '&lng=' + my_pos.lng);
+                update_position();
             }
         });
 
@@ -153,8 +98,7 @@
             var pos = marker.getPosition();
             my_pos.lat = parseFloat(pos.lat());
             my_pos.lng = parseFloat(pos.lng());
-            map.panTo(pos);
-            http_get('/pos?lat=' + my_pos.lat + '&lng=' + my_pos.lng);
+            update_position();
         });
     }
 </script>
