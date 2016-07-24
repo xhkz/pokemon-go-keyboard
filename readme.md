@@ -26,6 +26,7 @@ TODO
 ----
 - Display nearby pokemons, pokestops and gyms
 
-Thanks
-------------
+Credits
+-------
 [Pokemon-Go-Controller](https://github.com/kahopoon/Pokemon-Go-Controller)
+[PokemonGo-Map](https://github.com/AHAAAAAAA/PokemonGo-Map)
