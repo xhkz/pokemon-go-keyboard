@@ -17,7 +17,7 @@ def parse_unicode(byte_str):
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-a', '--auth-service', help='Auth Service', type=str.lower, default='ptc')
-    parser.add_argument('-u', '--username', help='Username', required=True)
+    parser.add_argument('-u', '--username', help='Username', required=False)
     parser.add_argument('-p', '--password', help='Password', required=False)
     parser.add_argument('-H', '--host', help='Web server host', default='127.0.0.1')
     parser.add_argument('-P', '--port', help='Web server port', type=int, default=5000)
@@ -26,8 +26,12 @@ def parse_args():
     parser.set_defaults(DEBUG=False)
     args = parser.parse_args()
 
-    if not args.password:
+    if args.username and not args.password:
         args.password = getpass.getpass()
+
+    if args.username and args.password:
+        config['USERNAME'] = args.username
+        config['PASSWORD'] = args.password
 
     return args
 

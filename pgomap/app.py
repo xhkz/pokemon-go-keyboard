@@ -10,6 +10,7 @@ from flask import Flask, jsonify, render_template, request
 from flask.json import JSONEncoder
 
 from pgomap.search import search
+from . import config
 from .models import Pokemon
 
 etc_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', 'etc')
@@ -26,7 +27,7 @@ class Pgomap(Flask):
         self.route("/pos", methods=['GET'])(self.get_pos)
 
     def poke_map(self):
-        return render_template('map.html')
+        return render_template('map.html', GMAPS_KEY=config['GMAPS_KEY'])
 
     def get_pos(self):
         d = {}

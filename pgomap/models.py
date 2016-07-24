@@ -36,7 +36,7 @@ class Pokemon(BaseModel):
     def get_active(cls):
         query = (Pokemon
                  .select()
-                 # .where(Pokemon.disappear_time > datetime.utcnow())
+                 .where(Pokemon.disappear_time > datetime.utcnow())
                  .dicts())
 
         pokemons = []

@@ -32,14 +32,17 @@ def send_map_request(api, position):
 
 
 def login(pos):
-    logger.info('Attempting login to Pokemon Go.')
 
     if config['USERNAME'] and config['PASSWORD']:
+        logger.info('Attempting login to Pokemon Go.')
         api.set_position(*pos)
         while not api.login(config['AUTH_SERVICE'], config['USERNAME'], config['PASSWORD']):
             logger.info('Failed to login to Pokemon Go. Trying again.')
             time.sleep(REQ_SLEEP)
         logger.info('Login to Pokemon Go successful.')
+        return True
+
+    return False
 
 
 def check_login(pos):
@@ -49,10 +52,12 @@ def check_login(pos):
         if remaining_time > 60:
             logger.info("Skipping Pokemon Go login process since already logged in for another {:.2f} seconds"
                         .format(remaining_time))
+
+            return True
         else:
-            login(pos)
+            return login(pos)
     else:
-        login(pos)
+        return login(pos)
 
 
 lat_gap_meters = 150
@@ -107,15 +112,15 @@ def generate_location_steps(pos, steps):
 
 def search(lat, lng):
     position = (lat, lng, 0)
-    check_login(position)
 
-    for step_location in generate_location_steps(position, config['STEPS']):
-        logger.debug('Scan location {:f}, {:f}'.format(step_location[0], step_location[1]))
+    if check_login(position):
+        for step_location in generate_location_steps(position, config['STEPS']):
+            logger.debug('Scan location {:f}, {:f}'.format(step_location[0], step_location[1]))
 
-        res = send_map_request(api, step_location)
-        try:
-            parse_map(res)
-        except KeyError:
-            logger.error('Scan step failed. Response dictionary key error.')
+            res = send_map_request(api, step_location)
+            try:
+                parse_map(res)
+            except KeyError:
+                logger.error('Scan step failed. Response dictionary key error.')
 
-        time.sleep(REQ_SLEEP)
+            time.sleep(REQ_SLEEP)

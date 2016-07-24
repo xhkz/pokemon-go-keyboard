@@ -2,7 +2,6 @@
 import logging
 import os
 
-from pgomap import config
 from pgomap.app import Pgomap
 from pgomap.models import create_tables
 from pgomap.utils import parse_args
@@ -13,10 +12,6 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(module)11s] [%(le
 def main():
     args = parse_args()
     create_tables()
-
-    if args.username and args.password:
-        config['USERNAME'] = args.username
-        config['PASSWORD'] = args.password
 
     if args.open:
         os.system('open "http://localhost:5000"')

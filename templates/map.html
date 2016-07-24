@@ -38,13 +38,6 @@
         alert(err);
     };
 
-    function http_get(url) {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", url, true);
-        xmlHttp.send(null);
-        return xmlHttp.responseText;
-    }
-
     function initMap() {
         var my_pos = {lat: c_lat, lng: c_lng};
 
@@ -60,12 +53,39 @@
             map: map,
             position: my_pos,
             draggable: true,
-            icon: 'static/pokeball.png'
+            icon: 'static/img/pokeball.png'
         });
+
+        function http_get(url) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+            xhr.send(null);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    var obj = JSON.parse(xhr.responseText);
+                    if (obj.pokemons !== undefined && obj.pokemons.length > 0) {
+                        for (var i = 0; i < obj.pokemons.length; i++) {
+                            add_marker(obj.pokemons[i]);
+                        }
+                    }
+                }
+            }
+        }
 
         function update_position() {
             map.panTo(my_pos);
             http_get('/pos?lat=' + my_pos.lat + '&lng=' + my_pos.lng);
+        }
+
+        function add_marker(item) {
+            new google.maps.Marker({
+                position: {
+                    lat: item.latitude,
+                    lng: item.longitude
+                },
+                map: map,
+                icon: 'static/img/icons/' + item.pokemon_id + '.png'
+            });
         }
 
         google.maps.event.addDomListener(document, 'keydown', function (event) {
@@ -104,7 +124,7 @@
         });
     }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?callback=init_pos"
+<script src="https://maps.googleapis.com/maps/api/js?callback=init_pos&key={{ GMAPS_KEY }}"
         async defer>
 </script>
 </body>
