@@ -1,16 +1,1 @@
-six
-Flask
-Jinja2
-MarkupSafe
-Werkzeug
-argparse
-click
-itsdangerous
-peewee
-wsgiref
-geopy
-protobuf==3.0.0.b4
-requests
-s2sphere
-gpsoauth
-protobuf-to-dict
+flask

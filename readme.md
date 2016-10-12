@@ -2,11 +2,13 @@
 
 Play Pokemon Go with your keyboard in a browser
 
+### Reverted to initial version and stopped update
+
 ![Shot](assets/shot.png)
 
 Environment
 ------------
-- Python 2
+- Python 2 or 3
 - Xcode 7
 
 Usage
@@ -18,35 +20,16 @@ Usage
    add location.gpx to it and click location option.
 4. cd path-to-clone
 5. [sudo] pip install -r requirements.txt
-6. ./run.py
-7. Drag the marker or use your arrow keys to control your location
-8. If you would like to show nearby pokemons, please run with username and
-   password (a seperate username would be better to avoid getting banned). 
+6. ./pokemap.py
+7. Drag the marker or use your arrow keys to simulate your location
 ```
-
-```bash
-usage: run.py [-h] [-a AUTH_SERVICE] [-u USERNAME] [-p PASSWORD] [-H HOST]
-              [-P PORT] [-d] [-o]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -a AUTH_SERVICE, --auth-service AUTH_SERVICE
-                        Auth Service
-  -u USERNAME, --username USERNAME
-                        Username
-  -p PASSWORD, --password PASSWORD
-                        Password
-  -H HOST, --host HOST  Web server host
-  -P PORT, --port PORT  Web server port
-  -d, --debug           Debug Mode
-  -o, --open            open browser
-```
-
-TODO
-----
-- Display nearby pokemons, pokestops and gyms
 
 Credits
--------
+------------
+[AbelIngrand](https://github.com/AbelIngrand)
+
+[dobiedad](https://github.com/dobiedad)
+
 [Pokemon-Go-Controller](https://github.com/kahopoon/Pokemon-Go-Controller)
+
 [PokemonGo-Map](https://github.com/AHAAAAAAA/PokemonGo-Map)
